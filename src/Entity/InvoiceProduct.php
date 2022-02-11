@@ -13,7 +13,7 @@ class InvoiceProduct
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: Invoice::class, inversedBy: 'product_id')]
+    #[ORM\ManyToOne(targetEntity: Invoice::class, inversedBy: 'invoiceProducts')]
     private $invoice_id;
 
     #[ORM\ManyToOne(targetEntity: Product::class, inversedBy: 'invoiceProducts')]

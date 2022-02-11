@@ -30,9 +30,13 @@ class Invoice
     #[ORM\Column(type: 'float',length: 255)]
     private $totalPrice;
 
+    #[ORM\OneToMany(mappedBy: 'invoice_id', targetEntity: InvoiceProduct::class, cascade: ["persist", "remove"])]
+    private $invoiceProducts;
+
 
     public function __construct()
     {
+        $this->invoiceProducts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +88,36 @@ class Invoice
     public function setTotalPrice(float $totalPrice): self
     {
         $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|InvoiceProduct[]
+     */
+    public function getInvoiceProducts(): Collection
+    {
+        return $this->invoiceProducts;
+    }
+
+    public function addInvoiceProduct(InvoiceProduct $invoiceProduct): self
+    {
+        if (!$this->invoiceProducts->contains($invoiceProduct)) {
+            $this->invoiceProducts[] = $invoiceProduct;
+            $invoiceProduct->setInvoiceId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvoiceProduct(InvoiceProduct $invoiceProduct): self
+    {
+        if ($this->invoiceProducts->removeElement($invoiceProduct)) {
+            // set the owning side to null (unless already changed)
+            if ($invoiceProduct->getInvoiceId() === $this) {
+                $invoiceProduct->setInvoiceId(null);
+            }
+        }
 
         return $this;
     }

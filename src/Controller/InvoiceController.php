@@ -83,7 +83,7 @@ class InvoiceController extends AbstractController
 
 
         }
-        return $this->render('invoice/createForm.html.twig', ['form' => $form->createView()]);
+        return $this->render('invoice/createFormEmpty.html.twig', ['form' => $form->createView()]);
     }
 
 //    Deletes Product from Invoice
