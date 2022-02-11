@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+{% block title %}Create Product!{% endblock %}
+
+{% block body %}
+    <div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+        <h1>Create Product</h1>
+
+    {{ form(form) }}
+    </div>
+{% endblock %}

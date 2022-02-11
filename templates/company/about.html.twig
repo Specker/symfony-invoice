@@ -1,0 +1,54 @@
+{% extends('base.html.twig') %}
+{% block body %}
+    <div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+<h1>{{ company.name }}, NIP: {{ company.NIP }}</h1>
+<h2>Address of {{ company.name }} is {{ company.address }} {{ company.postalcode }}, {{ company.city }}</h2>
+
+
+    <h4>Sell Invoices</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Seller</td>
+            <td>Buyer</td>
+            <td>Date</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in sellInvoices %}
+            <tr>
+                <td><a href="{{ path('invoice.getInvoice', {id: invoice.id }) }}">{{ invoice.id }}</a></td>
+                <td><a href="{{ path('company.getCompany', {id: invoice.seller.id }) }}">{{ invoice.seller }}</td>
+                <td><a href="{{ path('company.getCompany', {id: invoice.buyer.id }) }}">{{ invoice.buyer }}</td>
+                <td>{{ invoice.date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <h4>Buy Invoices</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Seller</td>
+            <td>Buyer</td>
+            <td>Date</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in buyInvoices %}
+            <tr>
+                <td><a href="{{ path('invoice.getInvoice', {id: invoice.id }) }}">{{ invoice.id }}</a></td>
+                <td><a href="{{ path('company.getCompany', {id: invoice.seller.id }) }}">{{ invoice.seller }}</td>
+                <td><a href="{{ path('company.getCompany', {id: invoice.buyer.id }) }}">{{ invoice.buyer }}</td>
+                <td>{{ invoice.date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    </div>
+{% endblock %}

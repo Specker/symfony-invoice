@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
+
+{% block title %}Create Invoice!{% endblock %}
+
+{% block body %}
+    <div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+        {{ form_start(form) }}
+        <div class="my-custom-class-for-errors">
+            {{ form_errors(form) }}
+        </div>
+
+            {{ form_row(form.date) }}
+        <div style="margin-top: 15px">
+            {{ form_label(form.seller) }}
+            <div class="flex-container" style="display: flex">
+
+                <div style="width: 100%">
+                    {{ form_widget(form.seller) }}
+                </div>
+                <div style="width: 150px; margin-left: 15px; margin-right: 15px" >
+                    <a href="{{ path('company.postCompanyFromInvoice') }}" class="btn btn-primary">Create New</a>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 15px">
+            {{ form_label(form.buyer) }}
+            <div class="flex-container" style="display: flex;">
+                <div style="width: 100%">
+                    {{ form_widget(form.buyer) }}
+                </div>
+                <div style="width: 150px; margin-left: 15px; margin-right: 15px" >
+                    <a href="{{ path('company.postCompanyFromInvoice') }}" class="btn btn-primary">Create New</a>
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 15px">
+            {{ form_row(form.save) }}
+        </div>
+        {{ form_end(form) }}
+    <div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Company List{% endblock %}
+
+{% block body %}
+<div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Products</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('product.getProduct', {id: product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price }} PLN</td>
+                <td><a href="{{ path('product.delProduct', {id: product.id }) }}" class="btn btn-danger">Del</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <td><a href="{{ path('product.postProduct') }}" class="btn btn-primary">Create Product</a></td>
+</div>
+{% endblock %}

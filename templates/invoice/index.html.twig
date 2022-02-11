@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Invoice{% endblock %}
+
+{% block body %}
+
+<div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Invoices</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Date</td>
+            <td>Seller</td>
+            <td>Buyer</td>
+            <td>Price</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for invoice in invoices %}
+            <tr>
+                <td><a href="{{ path('invoice.getInvoice', {id: invoice.id }) }}">{{ invoice.id }}</a></td>
+                <td>{{ invoice.date }}</td>
+                <td><a href="{{ path('company.getCompany', {id: invoice.seller.id }) }}">{{ invoice.seller }}</td>
+                <td><a href="{{ path('company.getCompany', {id: invoice.buyer.id }) }}">{{ invoice.buyer }}</td>
+
+                <td>{{ invoice.totalPrice }}</td>
+                <td><a href="{{ path('invoice.delInvoice', {id: invoice.id }) }}" class="btn btn-danger">Del</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <td><a href="{{ path('invoice.postInvoice') }}" class="btn btn-primary">Create Invoice</a></td>
+</div>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Company List{% endblock %}
+
+{% block body %}
+<div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+    {% for message in app.flashes('success')%}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <h1>Companies</h1>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Name</td>
+            <td>Address</td>
+            <td>PostalCode</td>
+            <td>City</td>
+            <td>NIP</td>
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for company in companies %}
+            <tr>
+                <td><a href="{{ path('company.getCompany', {id: company.id }) }}">{{ company.id }}</a></td>
+                <td>{{ company.name }}</td>
+                <td>{{ company.address }}</td>
+                <td>{{ company.postalCode }}</td>
+                <td>{{ company.city }}</td>
+                <td>{{ company.NIP }}</td>
+                <td><a href="{{ path('company.delCompany', {id: company.id }) }}" class="btn btn-danger">Del</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <td><a href="{{ path('company.postCompany') }}" class="btn btn-primary">Create Company</a></td>
+
+</div>
+{% endblock %}

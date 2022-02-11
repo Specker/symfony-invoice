@@ -1,0 +1,72 @@
+{% extends('base.html.twig') %}
+{% block body %}
+    <div style="width: 80%; background-color: #ebebe6; margin: 25px;padding: 25px">
+
+        {% for message in app.flashes('success')%}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        <h1>Invoice #{{ invoice.id }}</h1>
+
+        <div class="flex-container" style="display: flex; margin: 15px">
+            <div style="margin: 15px;flex-grow: 5">
+                <h3>Seller</h3>
+                <div>{{ invoice.seller.name }}</div>
+                <div>{{ invoice.seller.address }}</div>
+                <div>{{ invoice.seller.postalCode }}, {{ invoice.seller.city }}</div>
+                <div>{{ invoice.seller.NIP }}</div>
+            </div>
+            <div style="margin: 15px;flex-grow: 5">
+                <h3>Buyer</h3>
+                <div>{{ invoice.buyer.name }}</div>
+                <div>{{ invoice.buyer.address }}</div>
+                <div>{{ invoice.buyer.postalCode }}, {{ invoice.buyer.city }}</div>
+                <div>{{ invoice.buyer.NIP }}</div>
+            </div>
+        </div>
+
+
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>ID</td>
+                <td>Name</td>
+                <td>Description</td>
+                <td>Unit Price</td>
+                <td>Quantity</td>
+                <td>Price</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in invoiceProducts %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td><a href="{{ path('product.getProduct', {id: product.getProductId().id }) }}">{{ product.getProductId().id }}</a></td>
+                    <td>{{ product.getProductId().name }}</td>
+                    <td>{{ product.getProductId().description }}</td>
+                    <td>{{ product.getProductId().price }} PLN</td>
+                    <td>{{ product.quantity }}</td>
+                    <td>{{ product.totalPrice }} PLN</td>
+                    <td><a href="{{ path('invoice.invoiceDelProduct', {id: invoice.id, invProID: product.id}) }}" class="btn btn-danger">Del</a></td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <td><a href="{{ path('invoice.invoiceAddProduct', {id: invoice.id }) }}" class="btn btn-primary">add</a></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td>Total Price</td>
+                <td>
+                    {{ invoice.totalPrice }} PLN
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
